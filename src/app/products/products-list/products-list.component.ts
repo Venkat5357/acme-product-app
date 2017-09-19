@@ -14,8 +14,19 @@ export class ProductsListComponent implements OnInit {
   imageWidth:number = 50;
   imageMargin:number = 2;
   showImages:boolean = false;
-  listFilter:string = 'cart';
+   _listFilter: string;
 
+
+  get listFilter(): string {
+    return this._listFilter;
+  }
+
+  set listFilter(value: string) {
+    this._listFilter = value;
+    this.filteredProducts = this.listFilter ? this.performFilter(this.listFilter) : this.products;
+  }
+
+  filteredProducts : IProduct[] ;
   products : IProduct[]  = [{
       "productId": 1,
       "productName": "Leaf Rake",
@@ -67,7 +78,11 @@ export class ProductsListComponent implements OnInit {
       "imageUrl": "http://openclipart.org/image/300px/svg_to_png/120337/xbox-controller_01.png"
     }];
 
-  constructor() { }
+  constructor() {
+
+    this.filteredProducts = this.products;
+    this.listFilter = 'cart';
+  }
 
   ngOnInit() {
     console.log("in ngOnInit lifecycle hook");
@@ -76,6 +91,20 @@ export class ProductsListComponent implements OnInit {
   toggleImages(): void{
 
     this.showImages = !this.showImages;
+  }
+
+  performFilter(filterBy:string) : IProduct[] {
+
+    filterBy = filterBy.toLowerCase();
+
+    return this.products.filter((product:IProduct) =>
+    product.productName.toLowerCase().indexOf(filterBy) !== -1);
+
+  }
+
+  onNotify(message:string){
+
+    console.log(message);
   }
 
 }
