@@ -1,0 +1,9 @@
+<label>Enter UserName:</label>
+<input type="text" [(ngModel)]="userName"/>
+
+
+<h1>User Name you entered is :: {{userName}}</h1>
+
+
+<input type="button" [disabled]="!userName" (click)="setUserName()" value="click" />
+
