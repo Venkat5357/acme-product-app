@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ACME Product Management ';
+
+  name: String = 'venkatesh';
+
+  show: Boolean = true;
+
+  showName(): void {
+    this.show = false;
+ }
+
 }
